@@ -17,13 +17,13 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
     body, html {
-    width: 100%; height: 100%;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    /* Fondo rojo muy oscuro para armonizar con el tema */
-    background-color: #1a0407; 
-    color: var(--text-deep);
-    overflow-x: hidden;
-}
+        width: 100%; height: 100%;
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        /* Fondo rojo muy oscuro para armonizar con el tema */
+        background-color: #1a0407; 
+        color: var(--text-deep);
+        overflow-x: hidden;
+    }
 
     /* ====== SOBRE REDISEÑADO ====== */
 #envelope-screen {
@@ -193,8 +193,9 @@ body.content-active #main-invitation {
             max-width:500px;width:100%;
             border:1px solid rgba(184, 29, 50, 0.3);
             padding:50px 38px;text-align:center;position:relative;
-            background:rgba(255,253,254,0.78);
-            box-shadow:0 15px 40px rgba(56, 11, 18, 0.15),0 0 0 1px rgba(255,255,255,0.6) inset;
+            /* Fondo ligeramente tintado de rojo */
+            background:rgba(248, 225, 228, 0.85); 
+            box-shadow:0 15px 40px rgba(56, 11, 18, 0.25),0 0 0 1px rgba(255,255,255,0.5) inset;
             backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
             border-radius:4px;overflow:visible;
         }
@@ -298,6 +299,17 @@ body.content-active #main-invitation {
         }
         .info-block { margin-bottom:28px; }
 
+        /* ====== ANIMACIONES DE TEXTO (SCROLL) ====== */
+        .animate-up {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .animate-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* ====== DIVIDER ORNATE ====== */
         .divider-ornate { display:flex;align-items:center;justify-content:center;gap:8px;margin:28px auto; }
         .divider-ornate::before,.divider-ornate::after { content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(184, 29, 50,0.3)); }
@@ -339,8 +351,8 @@ body.content-active #main-invitation {
         /* ====== CALENDARIO ====== */
 .calendar-widget{
     margin-top:18px;
-    background:rgba(255,255,255,0.15);
-    border:1px solid rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.25);
+    border:1px solid rgba(255,255,255,0.4);
     border-radius:18px;
     overflow:hidden;
     backdrop-filter:blur(14px);
@@ -472,7 +484,11 @@ body.content-active #main-invitation {
         .map-card-tipo { font-family:'Cinzel',serif;font-size:7.5px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:rgba(255,228,232,0.9); }
         .map-card-nombre { font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;font-weight:400;color:#fff;line-height:1.2; }
         .map-card-body { padding:10px 14px 14px; }
-        .map-card-direccion { font-family:'Montserrat',sans-serif;font-size:11px;font-weight:400;color:var(--text-muted);line-height:1.6;margin-bottom:8px; }
+        .map-card-direccion { 
+            font-family:'Montserrat',sans-serif;font-size:11px;font-weight:400;
+            color:var(--text-rose);line-height:1.6;margin-bottom:8px; 
+            text-decoration: underline; cursor: pointer; display: inline-block;
+        }
         .map-wrapper { width:100%;height:175px;border-radius:4px;overflow:hidden;border:1px solid rgba(213,189,175,0.3); }
 
         /* ====== GALERÍA NUEVA 9 FOTOS ====== */
@@ -490,10 +506,40 @@ body.content-active #main-invitation {
             border: 1px solid rgba(184, 29, 50, 0.3);
             box-shadow: 0 4px 10px rgba(56, 11, 18, 0.1);
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
         .galeria-grid img:hover {
             transform: scale(1.05);
         }
+
+        /* ====== LIGHTBOX (GALERÍA AMPLIADA) ====== */
+        #lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 2, 3, 0.95); z-index: 2000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; 
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        #lightbox.active { opacity: 1; visibility: visible; }
+        #lightbox img {
+            max-width: 90%; max-height: 85%;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        #lightbox.active img { transform: scale(1); }
+        .lightbox-close {
+            position: absolute; top: 25px; right: 25px; color: white;
+            font-size: 32px; font-family: sans-serif; cursor: pointer;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+            display: flex; justify-content: center; align-items: center;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.3); transform: rotate(90deg); }
 
         /* ====== ITINERARIO ====== */
        .itinerario-timeline {
@@ -600,12 +646,6 @@ body.content-active #main-invitation {
     color:var(--text-rose);
 }
 
-        /* ====== VESTIMENTA ====== */
-        .vestimenta-icons { display:flex;justify-content:center;gap:22px;margin-top:14px; }
-        .vestimenta-icon-item { display:flex;flex-direction:column;align-items:center;gap:6px; }
-        .vestimenta-icon-item svg { width:28px;height:28px;fill:var(--text-muted);opacity:0.65; }
-        .vestimenta-icon-label { font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase; }
-
         /* ====== CONFIRMACIÓN ====== */
         .rsvp-intro { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:var(--text-deep);line-height:1.8;margin-bottom:22px; }
         .rsvp-input-label { font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:var(--text-muted);text-transform:uppercase;font-weight:400;display:block;margin-bottom:8px; }
@@ -648,7 +688,7 @@ body.content-active #main-invitation {
         /* ====== LOTUS + FOOTER ====== */
         .lotus-header { margin-bottom:20px; }
         .lotus-header svg { width:48px;height:48px;fill:#d4af37; }
-        .invitation-footer { font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(128, 48, 58, 0.5);margin-top:24px;font-weight:400;text-transform:uppercase; }
+        .invitation-footer { font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(128, 48, 58, 0.6);margin-top:24px;font-weight:400;text-transform:uppercase; }
 
         /* ====== KEYFRAMES ====== */
         @keyframes pulse { 0%,100%{opacity:0.5}50%{opacity:1} }
@@ -667,6 +707,12 @@ body.content-active #main-invitation {
     <button id="music-control-btn" onclick="toggleMusic()" aria-label="Control de música">
         <svg id="music-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
     </button>
+
+    <!-- Modal Lightbox para la Galería -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-close">&times;</div>
+        <img id="lightbox-img" src="" alt="Foto ampliada">
+    </div>
 
    <div id="envelope-screen">
 
@@ -730,7 +776,7 @@ body.content-active #main-invitation {
             </div>
         </div>
 
-        <!-- Cuerpo del sobre (Nuevo Color Rojo y Dorado) -->
+        <!-- Cuerpo del sobre (Color Rojo y Dorado) -->
         <div class="envelope-body">
             <svg class="env-svg-main" viewBox="0 0 310 210" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -868,41 +914,42 @@ body.content-active #main-invitation {
                 </svg>
             </div>
 
-            <div class="lotus-header">
+            <div class="lotus-header animate-up">
                 <svg viewBox="0 0 24 24"><path d="M5 16L3 5L8.5 10L12 4L15.5 10L21 5L19 16H5M19 19C19 19.55 18.55 20 18 20H6C5.45 20 5 19.55 5 19V18H19V19Z"/></svg>
             </div>
 
-            <div class="hero-photo-wrap">
+            <div class="hero-photo-wrap animate-up">
                 <img src="assets/daniela-hero.jpg" alt="Daniela" class="hero-photo">
             </div>
 
-            <div class="section-tag">Mis XV Años</div>
-            <h1 class="main-title">Daniela</h1>
-            <div class="full-name">Marquez Escalona</div>
+            <div class="section-tag animate-up">Mis XV Años</div>
+            <h1 class="main-title animate-up">Daniela</h1>
+            <div class="full-name animate-up">Marquez Escalona</div>
 
-            <div class="hashtag-text">#MisXVDaniela</div>
+            <div class="hashtag-text animate-up">#MisXVDaniela</div>
 
-            <p class="phrase">"Gracias a cada uno de ustedes por compartir conmigo este momento tan especial y por hacer que este día sea inolvidable".</p>
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+            <p class="phrase animate-up">"Gracias a cada uno de ustedes por compartir conmigo este momento tan especial y por hacer que este día sea inolvidable".</p>
+            
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="info-block">
+            <div class="info-block animate-up">
                 <div class="info-label">Con la bendición de mis padres</div>
                 <div class="family-names">Hugo Marquez Hernandez<br>Isabel Escalona Morin</div>
             </div>
 
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="section-heading-sm">Cuenta Regresiva</div>
-            <div class="countdown-grid" id="countdown-timer">
+            <div class="section-heading-sm animate-up">Cuenta Regresiva</div>
+            <div class="countdown-grid animate-up" id="countdown-timer">
                 <div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Días</span></div>
                 <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Hrs</span></div>
                 <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Min</span></div>
                 <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Seg</span></div>
             </div>
 
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio">
+            <div class="bloque-vidrio animate-up">
                 <div class="section-heading">Fecha</div>
                 <div style="font-family:'Cinzel',serif;font-size:28px;font-weight:300;color:var(--text-deep);letter-spacing:3px;">25 · JUL · 2026</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--text-muted);margin-top:5px;">Sábado</div>
@@ -928,28 +975,28 @@ body.content-active #main-invitation {
                 </button>
             </div>
 
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="info-block">
-                <div class="section-heading">Ubicaciones</div>
+            <div class="info-block animate-up">
+                <div class="section-heading">Ubicación</div>
                 
-                <div class="map-card" style="background: linear-gradient(rgba(255,255,255,0.82), rgba(255,255,255,0.82)), url('assets/salon.jpg') center center / cover no-repeat;">
+                <div class="map-card" style="background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('assets/salon.jpg') center center / cover no-repeat;">
                     <div class="map-card-header">
                         <span class="map-card-tipo">Recepción</span>
-                        <span class="map-card-nombre">Casino diamante real</span>
+                        <span class="map-card-nombre">Casino Diamante Real</span>
                     </div>
                     <div class="map-card-body">
-                        <div class="map-card-direccion">Ubicación del evento</div>
+                        <a href="https://maps.app.goo.gl/2ezvQASC4hgGjVDP7" target="_blank" class="map-card-direccion">Toca aquí para abrir en Google Maps</a>
                         <div class="map-wrapper">
-                            <iframe src="https://maps.app.goo.gl/cbyQB7R4zirhpGST7?g_st=ac" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://maps.google.com/maps?q=Casino%20diamante%20real&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio-alt">
+            <div class="bloque-vidrio-alt animate-up">
                 <div class="section-heading">Itinerario</div>
                 <div class="itinerario-timeline" id="itinerario">
                     <div class="itin-row">
@@ -985,27 +1032,17 @@ body.content-active #main-invitation {
                 </div>
             </div>
 
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio">
+            <div class="bloque-vidrio animate-up">
                 <div class="section-heading">Vestimenta</div>
                 <div style="font-family:'Cinzel',serif;font-size:20px;font-weight:300;letter-spacing:6px;color:var(--text-deep);margin-top:2px;">Formal</div>
-                <div style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:var(--text-muted);margin-top:8px;line-height:1.6;">Reservando el color rojo para la festejada</div>
-                <div class="vestimenta-icons">
-                    <div class="vestimenta-icon-item">
-                        <svg viewBox="0 0 24 24"><path d="M16 2l-1 3H9L8 2H4l2 5v13h12V7l2-5h-4M9.5 10a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 9.5 13 1.5 1.5 0 0 1 8 11.5 1.5 1.5 0 0 1 9.5 10m5 0a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 14.5 13 1.5 1.5 0 0 1 13 11.5 1.5 1.5 0 0 1 14.5 10Z"/></svg>
-                        <span class="vestimenta-icon-label">Damas</span>
-                    </div>
-                    <div class="vestimenta-icon-item">
-                        <svg viewBox="0 0 24 24"><path d="M7 2h10l-1.5 8H8.5L7 2M8.5 11l-1 11h9l-1-11H8.5M12 13v4m-2-2h4"/></svg>
-                        <span class="vestimenta-icon-label">Caballeros</span>
-                    </div>
-                </div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--text-muted);margin-top:12px;line-height:1.6;">Reservando el color rojo para la festejada</div>
             </div>
 
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio-alt">
+            <div class="bloque-vidrio-alt animate-up">
                 <div class="section-heading">Galería</div>
                 <p class="rsvp-intro" style="margin-bottom: 12px;">Un pequeño vistazo a mi sesión de fotos profesional antes del gran día.</p>
                 
@@ -1022,9 +1059,9 @@ body.content-active #main-invitation {
                 </div>
             </div>
 
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio">
+            <div class="bloque-vidrio animate-up">
                 <div class="section-heading">Confirmación</div>
                 <p class="rsvp-intro">Será un honor contar con tu presencia en esta noche tan especial. Por favor confirma tu asistencia.</p>
                 <div class="rsvp-input-wrap">
@@ -1037,9 +1074,9 @@ body.content-active #main-invitation {
                 </button>
             </div>
 
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio-alt">
+            <div class="bloque-vidrio-alt animate-up">
                 <div class="section-heading">Buenos Deseos</div>
                 <p class="rsvp-intro">Deja un mensaje para Daniela. Tu mensaje se guardará con cariño en esta nueva etapa.</p>
                 <form id="wish-form" style="text-align: left;" onsubmit="sendWishViaWhatsApp(event)">
@@ -1058,8 +1095,8 @@ body.content-active #main-invitation {
                 </form>
             </div>
 
-            <div class="divider-ornate" style="margin-top:30px;"><div class="divider-ornate-diamond"></div></div>
-            <div class="invitation-footer">Invytia Premium</div>
+            <div class="divider-ornate animate-up" style="margin-top:30px;"><div class="divider-ornate-diamond"></div></div>
+            <div class="invitation-footer animate-up">Invytia Premium</div>
 
         </div>
     </main>
@@ -1124,21 +1161,34 @@ body.content-active #main-invitation {
             requestAnimationFrame(drawGlitter);
         }
         function startGlitter(){canvas.classList.add('visible');drawGlitter();setInterval(spawnAmbient,350);}
-        document.addEventListener('click',e=>{if(document.body.classList.contains('content-active'))createGlitterBurst(e.clientX,e.clientY);});
+        document.addEventListener('click',e=>{
+            // Evitar destellos al clickear en la galería expandida
+            if(document.body.classList.contains('content-active') && !document.getElementById('lightbox').classList.contains('active')){
+                createGlitterBurst(e.clientX,e.clientY);
+            }
+        });
 
-        /* ===== ITINERARIO OBSERVER ===== */
-        function initItinerarioObserver(){
-            const rows=document.querySelectorAll('.itin-row');
-            const obs=new IntersectionObserver((entries)=>{
-                entries.forEach(entry=>{
+        /* ===== SCROLL OBSERVERS (Itinerario & Animate Up) ===== */
+        function initScrollObservers(){
+            const options = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
                     if(entry.isIntersecting){
-                        const idx=Array.from(rows).indexOf(entry.target);
-                        setTimeout(()=>entry.target.classList.add('visible'),idx*90);
+                        // Manejar el itinerario con retraso especial
+                        if(entry.target.classList.contains('itin-row')) {
+                            const rows = Array.from(document.querySelectorAll('.itin-row'));
+                            const idx = rows.indexOf(entry.target);
+                            setTimeout(() => entry.target.classList.add('visible'), idx * 90);
+                        } else {
+                            // Manejar animaciones generales
+                            entry.target.classList.add('visible');
+                        }
                         obs.unobserve(entry.target);
                     }
                 });
-            },{threshold:0.15});
-            rows.forEach(r=>obs.observe(r));
+            }, options);
+
+            document.querySelectorAll('.itin-row, .animate-up').forEach(el => obs.observe(el));
         }
 
        /* ===== SOBRE NUEVO ====== */
@@ -1165,6 +1215,16 @@ body.content-active #main-invitation {
                     }, { passive: false });
                 });
             }
+            
+            // Lógica para el Lightbox de la Galería
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            document.querySelectorAll('.galeria-grid img').forEach(img => {
+                img.addEventListener('click', () => {
+                    lightboxImg.src = img.src;
+                    lightbox.classList.add('active');
+                });
+            });
         });
 
         function openEnvelope() {
@@ -1181,8 +1241,12 @@ body.content-active #main-invitation {
                 if (musicBtn) musicBtn.classList.add('visible');
                 createFlowerPetals();
                 startGlitter();
-                setTimeout(initItinerarioObserver, 800);
+                setTimeout(initScrollObservers, 600);
             }, 1400);
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
         }
 
         function toggleMusic(){
@@ -1230,7 +1294,7 @@ body.content-active #main-invitation {
         }
 
         function addToCalendar(){
-            const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//XV Años Daniela//ES','BEGIN:VEVENT','DTSTART:20260725T200000','DTEND:20260726T020000','SUMMARY:XV Años de Daniela Marquez Escalona','DESCRIPTION:Recepción 8:00PM en Casino diamante real','LOCATION:Casino diamante real','STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'].join('\r\n');
+            const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//XV Años Daniela//ES','BEGIN:VEVENT','DTSTART:20260725T200000','DTEND:20260726T020000','SUMMARY:XV Años de Daniela Marquez Escalona','DESCRIPTION:Recepción 8:00PM en Casino Diamante Real','LOCATION:Casino Diamante Real','STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'].join('\r\n');
             const a=document.createElement('a');
             a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));
             a.download='XV-Anios-Daniela.ics';
