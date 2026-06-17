@@ -19,7 +19,8 @@
     body, html {
     width: 100%; height: 100%;
     font-family: 'Cormorant Garamond', Georgia, serif;
-    background-color: #0b1528; 
+    /* Fondo rojo muy oscuro para armonizar con el tema */
+    background-color: #1a0407; 
     color: var(--text-deep);
     overflow-x: hidden;
 }
@@ -29,10 +30,10 @@
     position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
     background: url('assets/imagen.jpg') no-repeat center center;
+    background-color: #1a0407; /* Fallback si no hay imagen */
     background-size: cover;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     z-index: 1000;
-    display: flex; justify-content: center; align-items: center;
     transition: opacity 1.2s ease-in-out, visibility 1.2s;
     overflow: hidden;
 }
@@ -82,11 +83,11 @@
 }
 .env-svg-main {
     width: 310px; height: 210px;
-    filter: drop-shadow(0 20px 50px rgba(0,0,0,0.6)) drop-shadow(0 6px 15px rgba(212,175,55,0.15));
+    filter: drop-shadow(0 20px 50px rgba(0,0,0,0.8)) drop-shadow(0 6px 15px rgba(212,175,55,0.15));
     transition: filter 0.4s ease;
 }
 .envelope-wrapper:hover .env-svg-main {
-    filter: drop-shadow(0 28px 60px rgba(0,0,0,0.7)) drop-shadow(0 8px 22px rgba(212,175,55,0.25));
+    filter: drop-shadow(0 28px 60px rgba(0,0,0,0.9)) drop-shadow(0 8px 22px rgba(212,175,55,0.25));
 }
 
 /* Nombre sobre el sobre */
@@ -227,22 +228,6 @@ body.content-active #main-invitation {
     font-weight: 500;
 }
 
-/* ====== QR FOTOS ====== */
-.qr-box {
-    width: 150px; 
-    height: 150px;
-    margin: 18px auto;
-    border-radius: 12px;
-    background: #fff;
-    padding: 12px;
-    border: 1px solid rgba(184, 29, 50, 0.15);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-}
-.qr-img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
-}
         /* Destellos fijos en las esquinas del frame */
         .frame-sparkle {
             position:absolute;pointer-events:none;z-index:10;
@@ -449,10 +434,6 @@ body.content-active #main-invitation {
     font-weight:600;
 }
 
-.cal-day.highlight::after{
-    display:none;
-}
-
 .btn-calendario{
     margin-top:18px;
     width:100%;
@@ -494,30 +475,33 @@ body.content-active #main-invitation {
         .map-card-direccion { font-family:'Montserrat',sans-serif;font-size:11px;font-weight:400;color:var(--text-muted);line-height:1.6;margin-bottom:8px; }
         .map-wrapper { width:100%;height:175px;border-radius:4px;overflow:hidden;border:1px solid rgba(213,189,175,0.3); }
 
-        /* ====== GALERÍA ====== */
-.galeria-contenedor {
-    width: 100%;
-    margin-top: 18px;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 12px 30px rgba(100, 60, 80, 0.15);
-    position: relative;
-}
-.galeria-img {
-    width: 100%;
-    display: block;
-    height: auto;
-    transition: transform 0.5s ease;
-}
-        /* ====== ITINERARIO NUEVO ====== */
+        /* ====== GALERÍA NUEVA 9 FOTOS ====== */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .galeria-grid img {
+            width: 100%;
+            aspect-ratio: 1; /* Mantiene la foto cuadrada perfectamente */
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid rgba(184, 29, 50, 0.3);
+            box-shadow: 0 4px 10px rgba(56, 11, 18, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .galeria-grid img:hover {
+            transform: scale(1.05);
+        }
+
+        /* ====== ITINERARIO ====== */
        .itinerario-timeline {
     margin-top:20px;
     position:relative;
     padding:0;
 }
 
-/* Línea vertical central */
 .itinerario-timeline::before {
     content:'';
     position:absolute;
@@ -686,8 +670,10 @@ body.content-active #main-invitation {
 
    <div id="envelope-screen">
 
+    <!-- Estrellas (generadas por JS) -->
     <div id="env-stars"></div>
 
+    <!-- Florales en esquinas -->
     <svg class="env-corner-svg tl" width="130" height="130" viewBox="0 0 130 130" fill="none">
         <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.35"/>
         <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.2"/>
@@ -720,6 +706,7 @@ body.content-active #main-invitation {
         <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#e63946" opacity="0.5"/>
     </svg>
 
+    <!-- Destellos dorados fijos -->
     <div class="env-sparkle" style="--sd:2.2s;--sdelay:0s;top:60px;left:80px;">
         <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
     </div>
@@ -735,6 +722,7 @@ body.content-active #main-invitation {
 
     <div class="envelope-wrapper" id="envelopeWrapperNew">
 
+        <!-- Carta que asoma al abrir -->
         <div class="letter-peek">
             <div class="letter-peek-inner">
                 <div class="letter-peek-name">Daniela</div>
@@ -742,6 +730,7 @@ body.content-active #main-invitation {
             </div>
         </div>
 
+        <!-- Cuerpo del sobre (Nuevo Color Rojo y Dorado) -->
         <div class="envelope-body">
             <svg class="env-svg-main" viewBox="0 0 310 210" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -751,39 +740,40 @@ body.content-active #main-invitation {
                         <stop offset="60%" stop-color="#f0d060"/>
                         <stop offset="100%" stop-color="#9e7f1e"/>
                     </linearGradient>
-                    <linearGradient id="envBase2" x1="0" y1="0" x2="0" y2="210" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#1c3255"/>
-                        <stop offset="100%" stop-color="#112240"/>
+                    <linearGradient id="envBaseRed" x1="0" y1="0" x2="0" y2="210" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#520b15"/>
+                        <stop offset="100%" stop-color="#240207"/>
                     </linearGradient>
-                    <linearGradient id="envLeft2" x1="0" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#253f6a"/>
-                        <stop offset="100%" stop-color="#1a2e50"/>
+                    <linearGradient id="envLeftRed" x1="0" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#6e131f"/>
+                        <stop offset="100%" stop-color="#38060e"/>
                     </linearGradient>
-                    <linearGradient id="envRight2" x1="310" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#1e3560"/>
-                        <stop offset="100%" stop-color="#152845"/>
+                    <linearGradient id="envRightRed" x1="310" y1="0" x2="155" y2="105" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#5e0e19"/>
+                        <stop offset="100%" stop-color="#2e040a"/>
                     </linearGradient>
-                    <linearGradient id="envBottom2" x1="155" y1="210" x2="155" y2="130" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#2a4475"/>
-                        <stop offset="100%" stop-color="#1c3255"/>
+                    <linearGradient id="envBottomRed" x1="155" y1="210" x2="155" y2="130" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#7a1723"/>
+                        <stop offset="100%" stop-color="#520b15"/>
                     </linearGradient>
-                    <linearGradient id="flapGrad2" x1="0" y1="0" x2="310" y2="140" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#2a4475"/>
-                        <stop offset="100%" stop-color="#1c3255"/>
+                    <linearGradient id="flapGradRed" x1="0" y1="0" x2="310" y2="140" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#7a1723"/>
+                        <stop offset="100%" stop-color="#520b15"/>
                     </linearGradient>
                 </defs>
-                <rect width="310" height="210" rx="5" fill="url(#envBase2)"/>
+                <rect width="310" height="210" rx="5" fill="url(#envBaseRed)"/>
                 <rect x="0.4" y="0.4" width="309.2" height="209.2" rx="4.6" stroke="url(#goldGrad2)" stroke-width="1.2" fill="none" opacity="0.7"/>
                 <rect x="7" y="7" width="296" height="196" rx="3" stroke="url(#goldGrad2)" stroke-width="0.5" fill="none" opacity="0.35"/>
-                <polygon points="0,0 155,105 0,210" fill="url(#envLeft2)" opacity="0.9"/>
-                <polygon points="310,0 155,105 310,210" fill="url(#envRight2)" opacity="0.9"/>
-                <polygon points="0,210 155,105 310,210" fill="url(#envBottom2)" opacity="0.95"/>
+                <polygon points="0,0 155,105 0,210" fill="url(#envLeftRed)" opacity="0.9"/>
+                <polygon points="310,0 155,105 310,210" fill="url(#envRightRed)" opacity="0.9"/>
+                <polygon points="0,210 155,105 310,210" fill="url(#envBottomRed)" opacity="0.95"/>
                 <line x1="0" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.3"/>
                 <line x1="310" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.3"/>
                 <line x1="0" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.25"/>
                 <line x1="310" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.25"/>
+                <!-- Solapa animable -->
                 <g class="env-flap-group" id="envFlapMain">
-                    <polygon points="0,0 155,125 310,0" fill="url(#flapGrad2)"/>
+                    <polygon points="0,0 155,125 310,0" fill="url(#flapGradRed)"/>
                     <polyline points="0,0 155,125 310,0" stroke="url(#goldGrad2)" stroke-width="1" fill="none" opacity="0.65"/>
                     <polyline points="10,0 155,118 300,0" stroke="url(#goldGrad2)" stroke-width="0.4" fill="none" opacity="0.3"/>
                     <g transform="translate(155,52)" opacity="0.7">
@@ -802,6 +792,7 @@ body.content-active #main-invitation {
             <div class="env-name-label">Daniela</div>
             <div class="env-date-label">Mis XV Años  ·  2026</div>
 
+            <!-- Sello de lacre -->
             <div class="wax-seal">
                 <svg viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -882,16 +873,16 @@ body.content-active #main-invitation {
             </div>
 
             <div class="hero-photo-wrap">
-    <img src="assets/daniela-hero.jpg" alt="Daniela" class="hero-photo">
-</div>
+                <img src="assets/daniela-hero.jpg" alt="Daniela" class="hero-photo">
+            </div>
 
-<div class="section-tag">Mis XV Años</div>
-<h1 class="main-title">Daniela</h1>
-<div class="full-name">Marquez Escalona</div>
+            <div class="section-tag">Mis XV Años</div>
+            <h1 class="main-title">Daniela</h1>
+            <div class="full-name">Marquez Escalona</div>
 
-<div class="hashtag-text">#MisXVDaniela</div>
+            <div class="hashtag-text">#MisXVDaniela</div>
 
-<p class="phrase">"Gracias a cada uno de ustedes por compartir conmigo este momento tan especial y por hacer que este día sea inolvidable".</p>
+            <p class="phrase">"Gracias a cada uno de ustedes por compartir conmigo este momento tan especial y por hacer que este día sea inolvidable".</p>
             <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
 
             <div class="info-block">
@@ -939,7 +930,7 @@ body.content-active #main-invitation {
 
             <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
 
-          <div class="info-block">
+            <div class="info-block">
                 <div class="section-heading">Ubicaciones</div>
                 
                 <div class="map-card" style="background: linear-gradient(rgba(255,255,255,0.82), rgba(255,255,255,0.82)), url('assets/salon.jpg') center center / cover no-repeat;">
@@ -1011,55 +1002,29 @@ body.content-active #main-invitation {
                     </div>
                 </div>
             </div>
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
-
-<div class="bloque-vidrio-alt">
-    <div class="section-heading">Nuestra Playlist</div>
-    <p class="rsvp-intro" style="margin-bottom: 15px;">¡Ayúdame a armar el soundtrack de esta noche! Escucha lo que tenemos hasta ahora y agrega tus canciones favoritas.</p>
-    
-    <div style="border-radius: 12px; overflow: hidden; margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.3);">
-        <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    </div>
-     <a href="LINK_A_TU_PLAYLIST_COLABORATIVA" target="_blank" style="text-decoration: none;">
-        <button class="btn-confirmar" style="background: linear-gradient(135deg, #1DB954, #1aa34a);">
-            <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15.06 10.56 18.72 12.84c.361.181.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.239.54-.959.72-1.56.3z"/></svg>
-            Agregar Canción
-        </button>
-    </a>
-</div>
-
-    <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
-
-<div class="bloque-vidrio-alt">
-    <div class="section-heading">Galería</div>
-    <p class="rsvp-intro" style="margin-bottom: 12px;">Un pequeño vistazo a mi sesión de fotos profesional antes del gran día.</p>
-    
-    <div class="galeria-contenedor">
-        <img src="assets/galeria.png" alt="Sesión de fotos Daniela" class="galeria-img">
-    </div>
-</div>
-
-<div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
-
-<div class="bloque-vidrio">
-    <div class="section-heading">Cámara en Vivo</div>
-    <p class="rsvp-intro" style="margin-bottom: 5px;">Ayúdanos a capturar los mejores momentos. Escanea el código si estás en otra pantalla o toca el botón para subir tus fotos y videos durante el evento.</p>
-    
-    <div class="qr-box">
-        <img src="assets/qr-fotos.png" alt="Sube tus fotos" class="qr-img">
-    </div>
-
-    <a href="LINK_A_TU_CARPETA_DE_DRIVE_O_ICLOUD" target="_blank" style="text-decoration: none;">
-        <button class="btn-confirmar">
-            <svg viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm8 3c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg>
-            Subir Fotos Aquí
-        </button>
-    </a>
-</div>
 
             <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
 
             <div class="bloque-vidrio-alt">
+                <div class="section-heading">Galería</div>
+                <p class="rsvp-intro" style="margin-bottom: 12px;">Un pequeño vistazo a mi sesión de fotos profesional antes del gran día.</p>
+                
+                <div class="galeria-grid">
+                    <img src="assets/galeria1.jpg" alt="Foto 1">
+                    <img src="assets/galeria2.jpg" alt="Foto 2">
+                    <img src="assets/galeria3.jpg" alt="Foto 3">
+                    <img src="assets/galeria4.jpg" alt="Foto 4">
+                    <img src="assets/galeria5.jpg" alt="Foto 5">
+                    <img src="assets/galeria6.jpg" alt="Foto 6">
+                    <img src="assets/galeria7.jpg" alt="Foto 7">
+                    <img src="assets/galeria8.jpg" alt="Foto 8">
+                    <img src="assets/galeria9.jpg" alt="Foto 9">
+                </div>
+            </div>
+
+            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
+
+            <div class="bloque-vidrio">
                 <div class="section-heading">Confirmación</div>
                 <p class="rsvp-intro">Será un honor contar con tu presencia en esta noche tan especial. Por favor confirma tu asistencia.</p>
                 <div class="rsvp-input-wrap">
@@ -1074,10 +1039,10 @@ body.content-active #main-invitation {
 
             <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio">
+            <div class="bloque-vidrio-alt">
                 <div class="section-heading">Buenos Deseos</div>
                 <p class="rsvp-intro">Deja un mensaje para Daniela. Tu mensaje se guardará con cariño en esta nueva etapa.</p>
-                <form id="wish-form" style="text-align: left;">
+                <form id="wish-form" style="text-align: left;" onsubmit="sendWishViaWhatsApp(event)">
                     <div class="rsvp-input-wrap">
                         <label class="rsvp-input-label" for="wish-nombre">Tu nombre</label>
                         <input type="text" id="wish-nombre" class="rsvp-input" placeholder="Ej. Fernanda" required>
@@ -1176,50 +1141,49 @@ body.content-active #main-invitation {
             rows.forEach(r=>obs.observe(r));
         }
 
-       /* ===== SOBRE NUEVO ===== */
-// Generar estrellas
-(function(){
-    const c = document.getElementById('env-stars');
-    if (!c) return;
-    c.style.cssText = 'position:absolute;inset:0;overflow:hidden;';
-    for (let i = 0; i < 60; i++) {
-        const s = document.createElement('div');
-        s.className = 'env-star';
-        const size = Math.random() * 2.5 + 0.8;
-        s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*3+1.5).toFixed(1)}s;--delay:-${(Math.random()*4).toFixed(1)}s;`;
-        c.appendChild(s);
-    }
-})();
+       /* ===== SOBRE NUEVO ====== */
+        (function(){
+            const c = document.getElementById('env-stars');
+            if (!c) return;
+            c.style.cssText = 'position:absolute;inset:0;overflow:hidden;';
+            for (let i = 0; i < 60; i++) {
+                const s = document.createElement('div');
+                s.className = 'env-star';
+                const size = Math.random() * 2.5 + 0.8;
+                s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*3+1.5).toFixed(1)}s;--delay:-${(Math.random()*4).toFixed(1)}s;`;
+                c.appendChild(s);
+            }
+        })();
 
-document.addEventListener('DOMContentLoaded', () => {
-    const wrapper = document.getElementById('envelopeWrapperNew');
-    if (wrapper) {
-        ['click','touchstart'].forEach(ev => {
-            wrapper.addEventListener(ev, (e) => {
-                if (e.type === 'click' && 'ontouchstart' in window) return;
-                openEnvelope();
-            }, { passive: false });
+        document.addEventListener('DOMContentLoaded', () => {
+            const wrapper = document.getElementById('envelopeWrapperNew');
+            if (wrapper) {
+                ['click','touchstart'].forEach(ev => {
+                    wrapper.addEventListener(ev, (e) => {
+                        if (e.type === 'click' && 'ontouchstart' in window) return;
+                        openEnvelope();
+                    }, { passive: false });
+                });
+            }
         });
-    }
-});
 
-function openEnvelope() {
-    const wrapper = document.getElementById('envelopeWrapperNew');
-    const screen = document.getElementById('envelope-screen');
-    const audio = document.getElementById('song');
-    const musicBtn = document.getElementById('music-control-btn');
-    if (!wrapper || wrapper.classList.contains('open')) return;
-    wrapper.classList.add('open');
-    if (audio) audio.play().then(() => { isPlaying = true; updateMusicIcon(); }).catch(() => {});
-    setTimeout(() => {
-        screen.classList.add('fade-out');
-        document.body.classList.add('content-active');
-        if (musicBtn) musicBtn.classList.add('visible');
-        createFlowerPetals();
-        startGlitter();
-        setTimeout(initItinerarioObserver, 800);
-    }, 1400);
-}
+        function openEnvelope() {
+            const wrapper = document.getElementById('envelopeWrapperNew');
+            const screen = document.getElementById('envelope-screen');
+            const audio = document.getElementById('song');
+            const musicBtn = document.getElementById('music-control-btn');
+            if (!wrapper || wrapper.classList.contains('open')) return;
+            wrapper.classList.add('open');
+            if (audio) audio.play().then(() => { isPlaying = true; updateMusicIcon(); }).catch(() => {});
+            setTimeout(() => {
+                screen.classList.add('fade-out');
+                document.body.classList.add('content-active');
+                if (musicBtn) musicBtn.classList.add('visible');
+                createFlowerPetals();
+                startGlitter();
+                setTimeout(initItinerarioObserver, 800);
+            }, 1400);
+        }
 
         function toggleMusic(){
             const audio=document.getElementById('song');
@@ -1228,17 +1192,41 @@ function openEnvelope() {
             else{audio.play().catch(()=>{});isPlaying=true;}
             updateMusicIcon();
         }
+        
         function updateMusicIcon(){
             const icon=document.getElementById('music-icon');
             if(!icon)return;
             icon.innerHTML=isPlaying?'<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>':'<path d="M8 5v14l11-7z"/>';
         }
 
+        /* ===== CONFIRMACION Y DESEOS (WhatsApp) ===== */
         function sendConfirmationViaWhatsApp(){
             const inp=document.getElementById('guest-name');
             if(!inp||!inp.value.trim()){alert('Por favor ingresa tu nombre completo.');inp.focus();return;}
             const msg=`¡Hola! Confirmo mi asistencia a los XV Años de Daniela Marquez Escalona.\n\n• Nombre: ${inp.value.trim()}`;
             window.open(`https://wa.me/528133858383?text=${encodeURIComponent(msg)}`,'_blank');
+        }
+
+        function sendWishViaWhatsApp(e){
+            e.preventDefault();
+            const nombre = document.getElementById('wish-nombre').value;
+            const mensaje = document.getElementById('wish-mensaje').value;
+            if(!nombre.trim() || !mensaje.trim()){ alert('Por favor llena todos los campos.'); return; }
+            
+            const msg = `¡Hola! Soy ${nombre.trim()}.\n\nMis mejores deseos para Daniela en sus XV Años:\n"${mensaje.trim()}"`;
+            window.open(`https://wa.me/528133858383?text=${encodeURIComponent(msg)}`, '_blank');
+            
+            // Efecto visual de envío
+            const btn = document.getElementById('btn-wish');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '¡Mensaje Preparado!';
+            btn.style.background = 'linear-gradient(135deg, rgba(142, 22, 40, 0.88), rgba(184, 29, 50, 0.88))';
+            document.getElementById('wish-form').reset();
+            
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.style.background = '';
+            }, 3000);
         }
 
         function addToCalendar(){
@@ -1270,53 +1258,6 @@ function openEnvelope() {
                 p.style.cssText=`width:${w}px;height:${w*1.3}px;left:${Math.random()*100}%;bottom:-30px;background-color:${['#e63946','#ff4d4d','#cc0000','#ffcccc'][Math.floor(Math.random()*4)]};animation-duration:${Math.random()*10+7}s;animation-delay:${Math.random()*6}s;`;
                 c.appendChild(p);
             }
-        }
-     /* ===== MURO DE DESEOS ===== */
-        // PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT
-        const WISH_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxuWFYPYPsSC3hPkZ61UlYd9SbAn3cL3DS4GvSYQhYWx-zBAlR0XwkQfEyY0mKBGXO1/exec";
-
-        const wishForm = document.getElementById('wish-form');
-        if(wishForm) {
-            wishForm.addEventListener('submit', async function(e) {
-                e.preventDefault(); 
-                
-                const btn = document.getElementById('btn-wish');
-                const nombre = document.getElementById('wish-nombre').value;
-                const mensaje = document.getElementById('wish-mensaje').value;
-                const originalContent = btn.innerHTML;
-                
-                // Estado de carga
-                btn.innerHTML = 'Enviando...';
-                btn.style.opacity = '0.7';
-                btn.disabled = true;
-
-                try {
-                    // Envío de datos al Google Apps Script
-                    await fetch(WISH_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors', // Fundamental para evitar bloqueos de CORS
-                        headers: { 'Content-Type': 'text/plain' },
-                        body: JSON.stringify({ type: 'wish', nombre: nombre, mensaje: mensaje })
-                    });
-                } catch(err) { 
-                    console.log("Error de conexión:", err); 
-                }
-
-                // Efecto visual de éxito
-                setTimeout(() => {
-                    btn.innerHTML = '¡Mensaje Enviado!';
-                    btn.style.background = 'linear-gradient(135deg, rgba(142, 22, 40, 0.88), rgba(184, 29, 50, 0.88))';
-                    btn.style.opacity = '1';
-                    wishForm.reset();
-                    
-                    // Regresar el botón a su estado normal
-                    setTimeout(() => {
-                        btn.innerHTML = originalContent;
-                        btn.style.background = '';
-                        btn.disabled = false;
-                    }, 3500);
-                }, 800); // Pequeño retraso para que el usuario sienta que "cargó"
-            });
         }
     </script>
 </body>
