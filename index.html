@@ -378,7 +378,7 @@ body.content-active #main-invitation {
 }
 
 .calendar-header{
-    padding:18px 20px 14px;
+    padding:14px 16px 12px;
     text-align:center;
     background: transparent;
     color: var(--text-deep);
@@ -404,9 +404,9 @@ body.content-active #main-invitation {
 }
 
 .calendar-month{
-    margin-top:5px;
+    margin-top:4px;
     font-family: 'Pinyon Script', cursive;
-    font-size:36px;
+    font-size:32px;
     font-style:normal;
     font-weight:400;
     letter-spacing:1px;
@@ -414,7 +414,7 @@ body.content-active #main-invitation {
 }
 
 .calendar-body{
-    padding:18px 16px 20px;
+    padding:14px 12px 18px;
 }
 
 .calendar-days-header{
@@ -435,18 +435,18 @@ body.content-active #main-invitation {
 .calendar-grid{
     display:grid;
     grid-template-columns:repeat(7,1fr);
-    gap:8px;
+    gap:6px;
 }
 
 .cal-day{
-    width:34px;
-    height:34px;
+    width:30px;
+    height:30px;
     margin:auto;
     display:flex;
     align-items:center;
     justify-content:center;
     font-family: 'Cormorant Garamond', serif;
-    font-size:17px;
+    font-size:15px;
     color:var(--text-deep);
     position:relative;
     border-radius:50%;
@@ -715,6 +715,12 @@ body.content-active #main-invitation {
             .main-title{font-size:64px}
             .invitation-frame{padding:38px 22px}
             .bloque-vidrio,.bloque-vidrio-alt{margin:0 -22px}
+            
+            /* Ajustes específicos para que el calendario no se corte en Androids pequeños */
+            .calendar-body { padding: 12px 6px 14px; }
+            .calendar-grid { gap: 4px; }
+            .cal-day { width: 28px; height: 28px; font-size: 14px; }
+            .calendar-month { font-size: 28px; }
         }
     </style>
 </head>
@@ -725,6 +731,7 @@ body.content-active #main-invitation {
         <svg id="music-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
     </button>
 
+    <!-- Modal Lightbox para la Galería -->
     <div id="lightbox" onclick="closeLightbox()">
         <div class="lightbox-close">×</div>
         <img id="lightbox-img" src="" alt="Foto ampliada">
@@ -732,8 +739,10 @@ body.content-active #main-invitation {
 
    <div id="envelope-screen">
 
+    <!-- Estrellas (generadas por JS) -->
     <div id="env-stars"></div>
 
+    <!-- Florales en esquinas -->
     <svg class="env-corner-svg tl" width="130" height="130" viewBox="0 0 130 130" fill="none">
         <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.35"/>
         <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.2"/>
@@ -766,6 +775,7 @@ body.content-active #main-invitation {
         <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#e63946" opacity="0.5"/>
     </svg>
 
+    <!-- Destellos dorados fijos -->
     <div class="env-sparkle" style="--sd:2.2s;--sdelay:0s;top:60px;left:80px;">
         <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
     </div>
@@ -781,13 +791,15 @@ body.content-active #main-invitation {
 
     <div class="envelope-wrapper" id="envelopeWrapperNew">
 
+        <!-- Carta que asoma al abrir -->
         <div class="letter-peek">
             <div class="letter-peek-inner">
                 <div class="letter-peek-name">Daniela</div>
-                <div class="letter-peek-date">25 · Julio · 2026</div>
+                <div class="letter-peek-date">25 · Jul · 2026</div>
             </div>
         </div>
 
+        <!-- Cuerpo del sobre (Color Rojo y Dorado) -->
         <div class="envelope-body">
             <svg class="env-svg-main" viewBox="0 0 310 210" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -828,6 +840,7 @@ body.content-active #main-invitation {
                 <line x1="310" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.3"/>
                 <line x1="0" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.25"/>
                 <line x1="310" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.25"/>
+                <!-- Solapa animable -->
                 <g class="env-flap-group" id="envFlapMain">
                     <polygon points="0,0 155,125 310,0" fill="url(#flapGradRed)"/>
                     <polyline points="0,0 155,125 310,0" stroke="url(#goldGrad2)" stroke-width="1" fill="none" opacity="0.65"/>
@@ -848,6 +861,7 @@ body.content-active #main-invitation {
             <div class="env-name-label">Daniela</div>
             <div class="env-date-label">Mis XV Años  ·  2026</div>
 
+            <!-- Sello de lacre -->
             <div class="wax-seal">
                 <svg viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -960,7 +974,7 @@ body.content-active #main-invitation {
 
             <div class="bloque-vidrio animate-up">
                 <div class="section-heading">Fecha</div>
-                <div style="font-family:'Cinzel',serif;font-size:28px;font-weight:300;color:var(--text-deep);letter-spacing:3px;">25 · JULIO · 2026</div>
+                <div style="font-family:'Cinzel',serif;font-size:28px;font-weight:300;color:var(--text-deep);letter-spacing:3px;">25 · JUL · 2026</div>
                 <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--text-muted);margin-top:5px;">Sábado</div>
                 <div class="calendar-widget">
                     <div class="calendar-header">2026 <div class="calendar-month">Julio</div></div>
