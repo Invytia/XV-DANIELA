@@ -229,6 +229,23 @@ body.content-active #main-invitation {
     font-weight: 500;
 }
 
+/* ====== QR FOTOS ====== */
+.qr-box {
+    width: 150px; 
+    height: 150px;
+    margin: 18px auto;
+    border-radius: 12px;
+    background: #fff;
+    padding: 12px;
+    border: 1px solid rgba(184, 29, 50, 0.15);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+.qr-img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+}
+
         /* Destellos fijos en las esquinas del frame */
         .frame-sparkle {
             position:absolute;pointer-events:none;z-index:10;
@@ -708,18 +725,15 @@ body.content-active #main-invitation {
         <svg id="music-icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
     </button>
 
-    <!-- Modal Lightbox para la Galería -->
     <div id="lightbox" onclick="closeLightbox()">
-        <div class="lightbox-close">&times;</div>
+        <div class="lightbox-close">×</div>
         <img id="lightbox-img" src="" alt="Foto ampliada">
     </div>
 
    <div id="envelope-screen">
 
-    <!-- Estrellas (generadas por JS) -->
     <div id="env-stars"></div>
 
-    <!-- Florales en esquinas -->
     <svg class="env-corner-svg tl" width="130" height="130" viewBox="0 0 130 130" fill="none">
         <path d="M10 65 C10 30 40 10 65 10 C50 35 35 50 10 65Z" fill="#d4af37" opacity="0.35"/>
         <path d="M10 65 C35 50 55 35 65 10 C45 20 20 45 10 65Z" fill="#f0d060" opacity="0.2"/>
@@ -752,7 +766,6 @@ body.content-active #main-invitation {
         <path d="M55 10 Q65 30 80 25 Q70 15 55 10Z" fill="#e63946" opacity="0.5"/>
     </svg>
 
-    <!-- Destellos dorados fijos -->
     <div class="env-sparkle" style="--sd:2.2s;--sdelay:0s;top:60px;left:80px;">
         <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2L13.4 10.6L22 12L13.4 13.4L12 22L10.6 13.4L2 12L10.6 10.6Z" fill="#d4af37"/></svg>
     </div>
@@ -768,7 +781,6 @@ body.content-active #main-invitation {
 
     <div class="envelope-wrapper" id="envelopeWrapperNew">
 
-        <!-- Carta que asoma al abrir -->
         <div class="letter-peek">
             <div class="letter-peek-inner">
                 <div class="letter-peek-name">Daniela</div>
@@ -776,7 +788,6 @@ body.content-active #main-invitation {
             </div>
         </div>
 
-        <!-- Cuerpo del sobre (Color Rojo y Dorado) -->
         <div class="envelope-body">
             <svg class="env-svg-main" viewBox="0 0 310 210" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -817,7 +828,6 @@ body.content-active #main-invitation {
                 <line x1="310" y1="0" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.3"/>
                 <line x1="0" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.25"/>
                 <line x1="310" y1="210" x2="155" y2="105" stroke="url(#goldGrad2)" stroke-width="0.8" opacity="0.25"/>
-                <!-- Solapa animable -->
                 <g class="env-flap-group" id="envFlapMain">
                     <polygon points="0,0 155,125 310,0" fill="url(#flapGradRed)"/>
                     <polyline points="0,0 155,125 310,0" stroke="url(#goldGrad2)" stroke-width="1" fill="none" opacity="0.65"/>
@@ -838,7 +848,6 @@ body.content-active #main-invitation {
             <div class="env-name-label">Daniela</div>
             <div class="env-date-label">Mis XV Años  ·  2026</div>
 
-            <!-- Sello de lacre -->
             <div class="wax-seal">
                 <svg viewBox="0 0 62 62" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -1062,6 +1071,24 @@ body.content-active #main-invitation {
             <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
             <div class="bloque-vidrio animate-up">
+                <div class="section-heading">Cámara en Vivo</div>
+                <p class="rsvp-intro" style="margin-bottom: 5px;">Ayúdanos a capturar los mejores momentos. Escanea el código si estás en otra pantalla o toca el botón para subir tus fotos y videos durante el evento.</p>
+                
+                <div class="qr-box">
+                    <img src="assets/qr.png" alt="Sube tus fotos" class="qr-img">
+                </div>
+
+                <a href="https://drive.google.com/drive/folders/1GzPfIZh3TpPROywabR_-96B0yreUbRQW?usp=sharing" target="_blank" style="text-decoration: none;">
+                    <button class="btn-confirmar">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h3l2-2h6l2 2h3c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm8 3c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg>
+                        Subir Fotos Aquí
+                    </button>
+                </a>
+            </div>
+
+            <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
+
+            <div class="bloque-vidrio-alt animate-up">
                 <div class="section-heading">Confirmación</div>
                 <p class="rsvp-intro">Será un honor contar con tu presencia en esta noche tan especial. Por favor confirma tu asistencia.</p>
                 <div class="rsvp-input-wrap">
@@ -1076,7 +1103,7 @@ body.content-active #main-invitation {
 
             <div class="divider-ornate animate-up"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio-alt animate-up">
+            <div class="bloque-vidrio animate-up">
                 <div class="section-heading">Buenos Deseos</div>
                 <p class="rsvp-intro">Deja un mensaje para Daniela. Tu mensaje se guardará con cariño en esta nueva etapa.</p>
                 <form id="wish-form" style="text-align: left;" onsubmit="sendWishViaWhatsApp(event)">
@@ -1294,7 +1321,7 @@ body.content-active #main-invitation {
         }
 
         function addToCalendar(){
-            const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//XV Años Daniela//ES','BEGIN:VEVENT','DTSTART:20260725T200000','DTEND:20260726T020000','SUMMARY:XV Años de Daniela Marquez Escalona','DESCRIPTION:Recepción 8:00PM en Casino Diamante Real','LOCATION:Casino Diamante Real','STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'].join('\r\n');
+            const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//XV Años Daniela//ES','BEGIN:VEVENT','DTSTART:20260725T200000','DTEND:20260726T010000','SUMMARY:XV Años de Daniela Marquez Escalona','DESCRIPTION:Recepción 8:00PM en Casino Diamante Real','LOCATION:Casino Diamante Real','STATUS:CONFIRMED','END:VEVENT','END:VCALENDAR'].join('\r\n');
             const a=document.createElement('a');
             a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));
             a.download='XV-Anios-Daniela.ics';
